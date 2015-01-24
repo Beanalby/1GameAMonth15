@@ -5,8 +5,9 @@ namespace onegam_1501 {
     [RequireComponent(typeof(CharacterController2D))]
     public class Player: MonoBehaviour {
 
-        private float moveSpeed = 10;
+        public AttackEffect attacker;
 
+        private float moveSpeed = 10;
         private CharacterController2D cc;
 
         // Use this for initialization
@@ -14,9 +15,21 @@ namespace onegam_1501 {
             cc = GetComponent<CharacterController2D>();
         }
 
+        public void Update() {
+            HandleAttack();
+        }
+
         // Update is called once per frame
         void FixedUpdate() {
             HandleMovement();
+        }
+
+        void HandleAttack() {
+            if (Input.GetButtonDown("Jump")) {
+                //s top moving when attacking
+                cc.velocity = Vector3.zero;
+                attacker.gameObject.SetActive(true);
+            }
         }
 
         void HandleMovement() {
