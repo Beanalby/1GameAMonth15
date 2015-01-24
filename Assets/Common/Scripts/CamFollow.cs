@@ -12,6 +12,7 @@ public class CamFollow : MonoBehaviour
     public Vector3 cameraOffset;
     public bool useFixedUpdate = true;
     public bool ignoreZ = false;
+    public bool disableLeftScrolling = false;
 
     public Vector2 MinPosition, maxPosition;
 
@@ -69,5 +70,13 @@ public class CamFollow : MonoBehaviour
             pos.z = oldZ;
         }
         transform.position = pos;
+
+        if (disableLeftScrolling && transform.position.x > MinPosition.x) {
+            MinPosition.x = transform.position.x;
+        }
+    }
+
+    public void SetMaxX(float x) {
+        maxPosition.x = x;
     }
 }
