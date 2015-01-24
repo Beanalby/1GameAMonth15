@@ -37,7 +37,16 @@ namespace onegam_1501 {
                 moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal"),
                 moveSpeed * Time.deltaTime * Input.GetAxis("Vertical"),
                 0);
-             //cap delta based on our movement restrictions
+            
+            // flip ourselves if our direction changed
+            if ((delta.x > 0 && transform.localScale.x < 0f)
+                    || (delta.x < 0 && transform.localScale.x > 0f)) {
+                transform.localScale = new Vector3(
+                    -transform.localScale.x,
+                    transform.localScale.y,
+                    transform.localScale.z);
+            }
+            //cap delta based on our movement restrictions
             if (delta.y > 0) {
                 delta.y = Mathf.Min(Stage.yMax - transform.position.y, delta.y);
             } else {
