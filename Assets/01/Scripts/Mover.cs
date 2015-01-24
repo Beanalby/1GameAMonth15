@@ -14,6 +14,8 @@ namespace onegam_1501 {
 
         private CharacterController2D cc;
         private float stopStart=-1, stopDuration;
+        private Vector3 forceTarget = Vector3.zero;
+        private Section forceSection = null;
 
         void Start() {
             cc = GetComponent<CharacterController2D>();
@@ -21,7 +23,8 @@ namespace onegam_1501 {
 
         public void Move(float x, float y) {
             // if we can't control at all, don't allow movement
-            if (!CanControl) {
+            // (unless we're forcing movement)
+            if (!CanControl && forceTarget == Vector3.zero) {
                 return;
             }
             // if we're stopped, don't allow movement
@@ -33,6 +36,24 @@ namespace onegam_1501 {
                 }
             }
 
+            if (forceTarget != Vector3.zero) {
+                // if we're close enough to the force target,
+                // then stop.  Otherwise ignore provided x & y
+                // and force moving towards it
+                Vector3 dir = forceTarget - transform.position;
+                if (dir.magnitude < .1f) {
+                    forceTarget = Vector3.zero;
+                    cc.velocity = Vector3.zero;
+                    if (forceSection) {
+                        forceSection.ForceMoveFinished();
+                    }
+                    return;
+                } else {
+                    dir.Normalize();
+                    x = dir.x;
+                    y = dir.y;
+                }
+            }
             Vector3 newV = cc.velocity;
             newV.x = Mathf.Lerp(newV.x, x * maxSpeed, Time.fixedDeltaTime * groundDampening);
             newV.y = Mathf.Lerp(newV.y, y * maxSpeed, Time.fixedDeltaTime * groundDampening);
@@ -64,6 +85,17 @@ namespace onegam_1501 {
             cc.velocity = Vector3.zero;
             stopStart = Time.time;
             stopDuration = duration;
+        }
+
+        /// <summary>
+        /// Forces the target to move to a certain location and
+        /// disables control
+        /// </summary>
+        /// <param name="newTarget"></param>
+        public void ForceMove(Section section) {
+            forceSection = section;
+            forceTarget = forceSection.ForceTarget.position;
+            CanControl = false;
         }
     }
 }
