@@ -5,16 +5,27 @@ namespace onegam_1501 {
     [RequireComponent(typeof(CharacterController2D))]
     public class Mover: MonoBehaviour {
 
+        public float maxSpeed = 10;
+
         private float groundDampening = 20f;
 
-        private float maxSpeed = 10;
         private CharacterController2D cc;
+        private float stopStart=-1, stopDuration;
 
         void Start() {
             cc = GetComponent<CharacterController2D>();
         }
 
         public void Move(float x, float y) {
+            // if we're stopped, don't allow movement
+            if (stopStart != -1) {
+                if (Time.time - stopStart < stopDuration) {
+                    return;
+                } else {
+                    stopStart = -1;
+                }
+            }
+
             Vector3 newV = cc.velocity;
             newV.x = Mathf.Lerp(newV.x, x * maxSpeed, Time.fixedDeltaTime * groundDampening);
             newV.y = Mathf.Lerp(newV.y, y * maxSpeed, Time.fixedDeltaTime * groundDampening);
@@ -37,6 +48,15 @@ namespace onegam_1501 {
                 delta.y = Mathf.Max(Stage.yMin - transform.position.y, delta.y);
             }
             cc.move(delta);
+        }
+
+        /// <summary>
+        /// Called when something wants to kill our velocity
+        /// </summary>
+        public void Stop(float duration) {
+            cc.velocity = Vector3.zero;
+            stopStart = Time.time;
+            stopDuration = duration;
         }
     }
 }

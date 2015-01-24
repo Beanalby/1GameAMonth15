@@ -19,19 +19,17 @@ namespace onegam_1501 {
 
         // Update is called once per frame
         void FixedUpdate() {
-            //if (Input.GetAxis("Horizontal") > 0) {
-            //    Debug.Log(Time.time + " (" + Time.deltaTime + "): " + Input.GetAxis("Horizontal"));
-            //}
             mover.Move(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
 
         void HandleAttack() {
             if (Input.GetButtonDown("Jump")) {
                 //s top moving when attacking
-                attacker.gameObject.SetActive(true);
+                if (!attacker.gameObject.activeSelf) {
+                    attacker.gameObject.SetActive(true);
+                    mover.Stop(.1f);
+                }
             }
         }
-
-
     }
 }
