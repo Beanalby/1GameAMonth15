@@ -11,6 +11,7 @@ public class CamFollow : MonoBehaviour
     public new Transform transform;
     public Vector3 cameraOffset;
     public bool useFixedUpdate = true;
+    public bool ignoreZ = false;
 
     public Vector2 MinPosition, maxPosition;
 
@@ -44,6 +45,7 @@ public class CamFollow : MonoBehaviour
         if(target == null) {
             return;
         }
+        float oldZ = transform.position.z;
         Vector3 pos;
         if( _playerController == null)
         {
@@ -63,6 +65,9 @@ public class CamFollow : MonoBehaviour
         }
         pos.x = Mathf.Min(Mathf.Max(pos.x, MinPosition.x), maxPosition.x);
         pos.y = Mathf.Min(Mathf.Max(pos.y, MinPosition.y), maxPosition.y);
+        if (ignoreZ) {
+            pos.z = oldZ;
+        }
         transform.position = pos;
     }
 }
