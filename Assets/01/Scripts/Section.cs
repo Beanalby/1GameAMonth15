@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace onegam_1501 {
+    [RequireComponent(typeof(BoxCollider2D))]
     public class Section: MonoBehaviour {
 
         public Transform ForceTarget;
@@ -34,12 +35,16 @@ namespace onegam_1501 {
         }
 
         private void AdvanceConversation() {
+            Debug.Log("Advancing conversation");
             currentConversation++;
             if (currentConversation >= conversations.Length) {
                 foreach (Enemy e in enemies) {
                     e.CanControl = true;
                 }
-                player.CanControl = true;
+                if (currentConversation != 0) {
+                    player.CanControl = true;
+                    CinemaBars.Instance.HideCinemaBars();
+                }
             } else {
                 bubble.Display(conversations[currentConversation].speaker,
                     conversations[currentConversation].text,
@@ -67,6 +72,9 @@ namespace onegam_1501 {
                 // some conversation to display
                 if (conversations.Length != 0) {
                     player.SendMessage("ForceMove", this);
+                    CinemaBars.Instance.ShowCinemaBars();
+                    // story trigger only happens once, disable it
+                    GetComponent<BoxCollider2D>().enabled = false;
                 }
             }
         }

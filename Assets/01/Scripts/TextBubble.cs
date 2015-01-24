@@ -47,7 +47,7 @@ namespace onegam_1501 {
         }
 
         private void UpdateText() {
-            if (Input.GetButtonDown("Jump")) {
+            if (renderer.enabled && Input.GetButtonDown("Jump")) {
                 if (displayStart != -1) {
                     // force displaying it all
                     displayStart = -100;
