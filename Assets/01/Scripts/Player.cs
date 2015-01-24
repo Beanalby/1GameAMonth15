@@ -15,7 +15,7 @@ namespace onegam_1501 {
         }
 
         // Update is called once per frame
-        void Update() {
+        void FixedUpdate() {
             HandleMovement();
         }
 
