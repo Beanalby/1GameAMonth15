@@ -5,6 +5,8 @@ namespace onegam_1501 {
     [RequireComponent(typeof(CharacterController2D))]
     public class Mover: MonoBehaviour {
 
+        public Sprite stationary, walk1, walk2, attack;
+
         [HideInInspector]
         public bool CanControl = true;
 
@@ -13,12 +15,41 @@ namespace onegam_1501 {
         private float groundDampening = 20f;
 
         private CharacterController2D cc;
+        private SpriteRenderer sprite;
         private float stopStart=-1, stopDuration;
         private Vector3 forceTarget = Vector3.zero;
         private Section forceSection = null;
+        private float animSpeed = .15f;
+        private float animLastFlip = -1f;
 
-        void Start() {
+        public void Start() {
             cc = GetComponent<CharacterController2D>();
+            sprite = GetComponentInChildren<SpriteRenderer>();
+        }
+
+        public void Update() {
+            Animate();
+        }
+
+        public void Animate() {
+            if (stopStart != -1) {
+                sprite.sprite = attack;
+            } else {
+                if (cc.velocity == Vector3.zero) {
+                    sprite.sprite = stationary;
+                } else {
+                    if (Time.time - animLastFlip > animSpeed) {
+                        if (sprite.sprite == walk1) {
+                            Debug.Log("Setting to walk2");
+                            sprite.sprite = walk2;
+                        } else {
+                            Debug.Log("Setting to walk1");
+                            sprite.sprite = walk1;
+                        }
+                        animLastFlip = Time.time;
+                    }
+                }
+            }
         }
 
         public void Move(float x, float y) {
