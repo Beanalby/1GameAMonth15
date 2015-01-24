@@ -6,24 +6,33 @@ namespace onegam_1501 {
     public class Enemy: MonoBehaviour {
         public AttackEffect attackEffect;
 
+        public bool CanControl {
+            get { return mover.CanControl; }
+            set { mover.CanControl = value; }
+        }
         private float attackDelay = 1f;
-        private float minDist = 2f;
-        private float attackDist = 4f;
+        private float maxMoveDist = 20f;
+        private float minMoveDist = 2f;
+        private float attackDist = 6f;
 
         private Mover mover;
         private Player player;
 
-        public void Start() {
+        public void Awake() {
             mover = GetComponent<Mover>();
+        }
+        public void Start() {
             StartCoroutine(LoopAttack());
+            mover.CanControl = false;
             player = GameObject.FindObjectOfType<Player>();
         }
 
         public void FixedUpdate() {
-            // if we're not close to the player, slowly move towards them
+            // if we're not close & not too far, slowly move towards player
             if (player) {
                 Vector3 dir = player.transform.position - transform.position;
-                if (dir.magnitude > minDist) {
+                float dist = dir.magnitude;
+                if (dist > minMoveDist && dist < maxMoveDist) {
                     dir.Normalize();
                     mover.Move(dir.x, dir.y);
                 }

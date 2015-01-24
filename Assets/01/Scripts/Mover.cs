@@ -5,6 +5,9 @@ namespace onegam_1501 {
     [RequireComponent(typeof(CharacterController2D))]
     public class Mover: MonoBehaviour {
 
+        [HideInInspector]
+        public bool CanControl = true;
+
         public float maxSpeed = 10;
 
         private float groundDampening = 20f;
@@ -17,6 +20,10 @@ namespace onegam_1501 {
         }
 
         public void Move(float x, float y) {
+            // if we can't control at all, don't allow movement
+            if (!CanControl) {
+                return;
+            }
             // if we're stopped, don't allow movement
             if (stopStart != -1) {
                 if (Time.time - stopStart < stopDuration) {

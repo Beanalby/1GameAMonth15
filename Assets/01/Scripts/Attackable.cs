@@ -6,6 +6,7 @@ namespace onegam_1501 {
 
         public void GotHit(float damage) {
             Debug.Log("+++ " + name + " got hit!");
+            SendMessageUpwards("AttackableDied", this, SendMessageOptions.DontRequireReceiver);
             Destroy(gameObject);
         }
     }
