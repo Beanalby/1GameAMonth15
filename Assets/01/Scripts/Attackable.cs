@@ -15,7 +15,7 @@ namespace onegam_1501 {
         public float MaxHealth {
             get { return maxHealth; }
         }
-        private float maxHealth = 1;
+        private float maxHealth = 3;
         private float currentHealth;
 
         public void Start() {
