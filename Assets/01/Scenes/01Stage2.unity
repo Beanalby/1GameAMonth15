@@ -958,7 +958,7 @@ AudioSource:
   m_GameObject: {fileID: 186447439}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 8c3adb1bfb3ac8f4db14d1d663f0fb5b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2e05fd36c7afe0d4d816c5b4f08a8f2e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: .5
   m_Pitch: 1
@@ -2983,7 +2983,7 @@ MonoBehaviour:
   ForceTarget: {fileID: 913025470}
   conversations:
   - speaker: {fileID: 1908625086}
-    text: Uh oh, Katana Justice.\nI'm sorry we stole\nthe food!
+    text: Uh oh, Katana Force.\nI'm sorry we stole\nthe food!
   - speaker: {fileID: 210244242}
     text: I've come to put an\nend to your evil\nways, Street Alliance!
   - speaker: {fileID: 1908625086}
@@ -4947,7 +4947,7 @@ Prefab:
       objectReference: {fileID: 1908625086}
     - target: {fileID: 11441536, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}
       propertyPath: conversations.Array.data[0].text
-      value: Uh oh, Katana Justice.\nI'm sorry we stole\nthe food!
+      value: Uh oh, Katana Force.\nI'm sorry we stole\nthe food!
       objectReference: {fileID: 0}
     - target: {fileID: 11441536, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}
       propertyPath: conversations.Array.data[1].speaker

@@ -2696,7 +2696,7 @@ MonoBehaviour:
   ForceTarget: {fileID: 913025470}
   conversations:
   - speaker: {fileID: 1908625086}
-    text: Oh no, it's Katana Justice!
+    text: Oh no, it's Katana Force!
   - speaker: {fileID: 210244242}
     text: I've come to put an\nend to your evil\nways, Shark Gang!
   - speaker: {fileID: 1908625086}
@@ -4398,7 +4398,7 @@ Prefab:
       objectReference: {fileID: 1908625086}
     - target: {fileID: 11441536, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}
       propertyPath: conversations.Array.data[0].text
-      value: Oh no, it's Katana Justice!
+      value: Oh no, it's Katana Force!
       objectReference: {fileID: 0}
     - target: {fileID: 11441536, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}
       propertyPath: conversations.Array.data[1].speaker

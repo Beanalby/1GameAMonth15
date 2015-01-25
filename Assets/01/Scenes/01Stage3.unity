@@ -2233,15 +2233,14 @@ MonoBehaviour:
   ForceTarget: {fileID: 913025470}
   conversations:
   - speaker: {fileID: 365956287}
-    text: Katana Justice!\nThese terrorists are speaking\nout against the Justice\nLeague
+    text: Katana Force!\nThese terrorists are speaking\nout against the Justice\nLeague
       of Righteous Justice!\nKILL THEM!
   - speaker: {fileID: 927046337}
-    text: We will not fight you,\nKatana Justice.  We are\nasking for a voice\nin
-      the...
+    text: We will not fight you,\nKatana Force.  We are\nasking for a voice\nin the...
   - speaker: {fileID: 365956287}
-    text: ENOUGH!  Get them,\nKatana Justice!
+    text: ENOUGH!  Get them,\nKatana Force!
   - speaker: {fileID: 548344228}
-    text: Fight back against\nour oppresors, Katana Justice!\nPlease!
+    text: Fight back against\nour oppresors, Katana Force!\nPlease!
 --- !u!61 &672538887
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3600,7 +3599,7 @@ Prefab:
       objectReference: {fileID: 365956287}
     - target: {fileID: 11441536, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}
       propertyPath: conversations.Array.data[0].text
-      value: Katana Justice!\nThese terrorists are speaking\nout against the Justice\nLeague
+      value: Katana Force!\nThese terrorists are speaking\nout against the Justice\nLeague
         of Righteous Justice!\nKILL THEM!
       objectReference: {fileID: 0}
     - target: {fileID: 11441536, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}
@@ -3609,7 +3608,7 @@ Prefab:
       objectReference: {fileID: 927046337}
     - target: {fileID: 11441536, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}
       propertyPath: conversations.Array.data[1].text
-      value: We will not fight you,\nKatana Justice.  We are\nasking for a voice\nin
+      value: We will not fight you,\nKatana Force.  We are\nasking for a voice\nin
         the...
       objectReference: {fileID: 0}
     - target: {fileID: 11441536, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}
@@ -3618,7 +3617,7 @@ Prefab:
       objectReference: {fileID: 365956287}
     - target: {fileID: 11441536, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}
       propertyPath: conversations.Array.data[2].text
-      value: ENOUGH!  Get them,\nKatana Justice!
+      value: ENOUGH!  Get them,\nKatana Force!
       objectReference: {fileID: 0}
     - target: {fileID: 11441536, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}
       propertyPath: conversations.Array.data[3].speaker
@@ -3626,7 +3625,7 @@ Prefab:
       objectReference: {fileID: 548344228}
     - target: {fileID: 11441536, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}
       propertyPath: conversations.Array.data[3].text
-      value: Fight back against\nour oppresors, Katana Justice!\nPlease!
+      value: Fight back against\nour oppresors, Katana Force!\nPlease!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5b0a5d8ffb70e040b116401a3ce47c2, type: 2}

@@ -721,7 +721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skybox: {fileID: 2100000, guid: 5ba172cd3918d7c44aa6d04446119a00, type: 2}
   message: {fileID: 1854936069}
-  messageText: And so, Katana Justice\nupheld the law, with no\nnuance or mercy.\nThe
+  messageText: And so, Katana Force\nupheld the law, with no\nnuance or mercy.\nThe
     End
 --- !u!114 &210244237
 MonoBehaviour:
