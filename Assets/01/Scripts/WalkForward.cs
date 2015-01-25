@@ -2,7 +2,7 @@
 using System.Collections;
 
 namespace onegam_1501 {
-    [RequireComponent(typeof(Mover))]
+    [RequireComponent(typeof(Mover),typeof(Speaker))]
     public class WalkForward: MonoBehaviour {
 
         public Material skybox;
@@ -16,7 +16,7 @@ namespace onegam_1501 {
             }
             mover = GetComponent<Mover>();
             if (message) {
-                message.Display(Camera.main.gameObject, messageText, null);
+                message.Display(GetComponent<Speaker>(), messageText, null);
             }
         }
 

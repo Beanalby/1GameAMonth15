@@ -2,6 +2,7 @@
 using System.Collections;
 
 namespace onegam_1501 {
+    [RequireComponent(typeof(AudioSource))]
     public class TextBubble: MonoBehaviour {
 
         public string testText;
@@ -9,7 +10,7 @@ namespace onegam_1501 {
         public bool CanDismiss = true;
 
         private float maxCamDistance = 9f;
-        private Transform speaker;
+        private Speaker speaker;
         private GameObject caller;
         private string text = "";
         private TextMesh tm;
@@ -20,12 +21,15 @@ namespace onegam_1501 {
             tm = GetComponentInChildren<TextMesh>();
         }
 
-        public void Display(GameObject newSpeaker, string newText, GameObject newCaller=null) {
+        public void Display(Speaker newSpeaker, string newText, GameObject newCaller=null) {
             displayStart = Time.time;
             text = newText.Replace("\\n", "\n");
             EnableBubble();
             caller = newCaller;
-            speaker = newSpeaker.transform;
+            speaker = newSpeaker;
+            audio.clip = speaker.speakSound;
+            audio.loop = true;
+            audio.Play();
             UpdatePosition();
         }
 
@@ -38,14 +42,14 @@ namespace onegam_1501 {
             if (speaker) {
                 // if it's too far from the camera (some of it offscreen), fix it
                 Vector3 pos = transform.position;
-                pos.x = speaker.position.x;
+                pos.x = speaker.transform.position.x;
                 float camX = Camera.main.transform.position.x;
                 pos.x = Mathf.Min(camX + maxCamDistance, pos.x);
                 transform.position = pos;
 
                 if (textLine) {
                     textLine.transform.position = new Vector3(
-                        speaker.position.x,
+                        speaker.transform.position.x,
                         textLine.transform.position.y,
                         textLine.transform.position.z);
                 }
@@ -72,6 +76,7 @@ namespace onegam_1501 {
                 tm.text = text.Substring(0, currentNum);
                 if (currentNum >= text.Length) {
                     displayStart = -1;
+                    audio.loop = false;
                 }
             }
         }

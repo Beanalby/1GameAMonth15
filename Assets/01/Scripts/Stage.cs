@@ -55,7 +55,7 @@ namespace onegam_1501 {
             player.CanControl = false;
             CinemaBars.Instance.ShowCinemaBars();
             yield return new WaitForSeconds(1);
-            Message.Display(Camera.main.gameObject, stageDescription, gameObject);
+            Message.Display(Camera.main.GetComponent<Speaker>(), stageDescription, gameObject);
         }
 
         public void BubbleDone() {

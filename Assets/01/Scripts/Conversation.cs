@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[System.Serializable]
-public class Conversation {
-    public GameObject speaker;
-    public string text;
+namespace onegam_1501 {
+    [System.Serializable]
+    public class Conversation {
+        public Speaker speaker;
+        public string text;
+    }
 }
