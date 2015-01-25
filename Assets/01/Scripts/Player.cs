@@ -36,5 +36,8 @@ namespace onegam_1501 {
                 }
             }
         }
+        public void AttackableDied() {
+            Stage.Instance.PlayerDied();
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace onegam_1501 {
         public Section[] sections;
         public TextBubble Message;
         public TextBubble textBubble;
-        public Texture2D finishTexture;
+        public Texture2D finishTexture, gameOverTexture;
         private Texture2D displayedImage = null;
 
         private Player player;
@@ -88,6 +88,14 @@ namespace onegam_1501 {
             displayedImage = finishTexture;
             yield return new WaitForSeconds(3);
             Application.LoadLevel(ender.nextLevel);
+        }
+
+        public void PlayerDied() {
+            // stop all active enemies
+            foreach(Mover m in GameObject.FindObjectsOfType<Mover>()) {
+                m.CanControl = false;
+            }
+            displayedImage = gameOverTexture;
         }
 
         public TextBubble GetBubble() {
