@@ -3,7 +3,13 @@ using System.Collections;
 
 namespace onegam_1501 {
     public class Attackable: MonoBehaviour {
-        private float maxHealth = 50;
+        public float CurrentHealth {
+            get { return currentHealth; }
+        }
+        public float MaxHealth {
+            get { return maxHealth; }
+        }
+        private float maxHealth = 5;
         private float currentHealth;
 
         public void Start() {

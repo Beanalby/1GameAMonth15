@@ -4,7 +4,7 @@ using System.Collections;
 namespace onegam_1501 {
     public class AttackEffect: MonoBehaviour {
 
-        public float damage = 10;
+        public float damage = 1;
 
         private float maxYDist = 1f;
 
