@@ -23,11 +23,15 @@ namespace onegam_1501 {
         public void GotHit(float damage) {
             currentHealth = Mathf.Max(0, currentHealth - damage);
             if (currentHealth == 0) {
+                GetComponent<BoxCollider2D>().enabled = false;
+                AttackEffect ae = GetComponentInChildren<AttackEffect>();
+                if (ae) {
+                    ae.AttackableDied();
+                }
                 SendMessageUpwards("AttackableDied", this, SendMessageOptions.DontRequireReceiver);
                 if (deathListeners != null) {
                     deathListeners(this);
                 }
-                Destroy(gameObject);
             }
         }
     }

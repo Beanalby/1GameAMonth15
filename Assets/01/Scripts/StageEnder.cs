@@ -11,7 +11,6 @@ namespace onegam_1501 {
         }
 
         public void OnDeath(Attackable obj) {
-            Debug.Log("Invoking StageDone!");
             Stage.Instance.StageDone(this);
         }
     }

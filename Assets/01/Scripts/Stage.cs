@@ -67,10 +67,8 @@ namespace onegam_1501 {
         public void SectionDone(Section section) {
             int index = Array.IndexOf(sections, section);
             if (index == sections.Length - 1) {
-                Debug.Log("All Done!");
             } else {
                 index++;
-                Debug.Log("Activating next section " + index);
                 sections[index].Activate();
             }
         }
@@ -81,7 +79,6 @@ namespace onegam_1501 {
 
         private IEnumerator _stageDone(StageEnder ender) {
             // stop the player and all active enemies
-            Debug.Log("Stage is done!");
             player.CanControl = false;
             foreach(Mover m in GameObject.FindObjectsOfType<Mover>()) {
                 m.CanControl = false;

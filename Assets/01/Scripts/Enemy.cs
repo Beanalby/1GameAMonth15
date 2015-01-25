@@ -35,6 +35,8 @@ namespace onegam_1501 {
                 if (dist > minMoveDist && dist < maxMoveDist) {
                     dir.Normalize();
                     mover.Move(dir.x, dir.y);
+                } else {
+                    mover.Move(0, 0);
                 }
             }
         }

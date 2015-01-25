@@ -41,5 +41,9 @@ namespace onegam_1501 {
                 }
             }
         }
+        public void AttackableDied() {
+            // don't hit anything while we're dying
+            Destroy(gameObject);
+        }
     }
 }

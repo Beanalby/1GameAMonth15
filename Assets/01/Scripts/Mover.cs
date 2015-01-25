@@ -15,6 +15,7 @@ namespace onegam_1501 {
         private float groundDampening = 20f;
         private float hitStart = -1, hitDuration = .5f;
         private Color hitColor = Color.red, normalColor = Color.white;
+        private float deathStart = -1, deathTarget = 90, deathDuration=.5f;
 
         private CharacterController2D cc;
         private SpriteRenderer sprite;
@@ -34,20 +35,24 @@ namespace onegam_1501 {
         }
 
         public void Animate() {
-            // choose the right sprite based on our state
-            if (stopStart != -1) {
-                sprite.sprite = attack;
+            if (deathStart != -1) {
+                sprite.sprite = stationary;
             } else {
-                if (cc.velocity == Vector3.zero) {
-                    sprite.sprite = stationary;
+                // choose the right sprite based on our state
+                if (stopStart != -1) {
+                    sprite.sprite = attack;
                 } else {
-                    if (Time.time - animLastFlip > animSpeed) {
-                        if (sprite.sprite == walk1) {
-                            sprite.sprite = walk2;
-                        } else {
-                            sprite.sprite = walk1;
+                    if (cc.velocity == Vector3.zero) {
+                        sprite.sprite = stationary;
+                    } else {
+                        if (Time.time - animLastFlip > animSpeed) {
+                            if (sprite.sprite == walk1) {
+                                sprite.sprite = walk2;
+                            } else {
+                                sprite.sprite = walk1;
+                            }
+                            animLastFlip = Time.time;
                         }
-                        animLastFlip = Time.time;
                     }
                 }
             }
@@ -66,6 +71,19 @@ namespace onegam_1501 {
         }
 
         public void Move(float x, float y) {
+            // if we're dying, just apply the rotation
+            if (deathStart != -1) {
+                float percent = (Time.time - deathStart) / deathDuration;
+                if (percent >= 1) {
+                    Destroy(gameObject);
+                    return;
+                } else {
+                    transform.localRotation = Quaternion.Euler(new Vector3(0, 0,
+                        Mathf.Lerp(0, deathTarget, percent)));
+                }
+                return;
+            }
+
             // if we can't control at all, don't allow movement
             // (unless we're forcing movement)
             if (!CanControl && forceTarget == Vector3.zero) {
@@ -144,6 +162,13 @@ namespace onegam_1501 {
 
         public void GotHit(float damage) {
             hitStart = Time.time;
+        }
+        public void AttackableDied() {
+            CanControl = false;
+            deathStart = Time.time;
+            if (transform.localScale.x < 0) {
+                deathTarget = -deathTarget;
+            }
         }
    }
 }
