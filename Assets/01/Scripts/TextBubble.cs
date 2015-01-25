@@ -5,6 +5,7 @@ namespace onegam_1501 {
     public class TextBubble: MonoBehaviour {
 
         public string testText;
+        public SpriteRenderer textLine;
 
         private float maxCamDistance = 7f;
         private Transform speaker;
@@ -18,6 +19,7 @@ namespace onegam_1501 {
             tm = GetComponentInChildren<TextMesh>();
             tm.renderer.enabled = false;
             renderer.enabled = false;
+            textLine.enabled = false;
         }
 
         public void Display(GameObject newSpeaker, string newText, GameObject newCaller=null) {
@@ -25,6 +27,7 @@ namespace onegam_1501 {
             text = newText.Replace("\\n", "\n");
             renderer.enabled = true;
             tm.renderer.enabled = true;
+            textLine.enabled = true;
             caller = newCaller;
             speaker = newSpeaker.transform;
             UpdatePosition();
@@ -43,6 +46,11 @@ namespace onegam_1501 {
                 float camX = Camera.main.transform.position.x;
                 pos.x = Mathf.Min(camX + maxCamDistance, pos.x);
                 transform.position = pos;
+
+                textLine.transform.position = new Vector3(
+                    speaker.position.x,
+                    textLine.transform.position.y,
+                    textLine.transform.position.z);
             }
         }
 
@@ -54,6 +62,7 @@ namespace onegam_1501 {
                 } else {
                     tm.renderer.enabled = false;
                     renderer.enabled = false;
+                    textLine.enabled = false;
                     if (caller) {
                         caller.SendMessage("BubbleDone", this);
                         speaker = null;
