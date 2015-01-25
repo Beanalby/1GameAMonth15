@@ -6,8 +6,9 @@ namespace onegam_1501 {
 
         public string testText;
         public SpriteRenderer textLine;
+        public bool CanDismiss = true;
 
-        private float maxCamDistance = 7f;
+        private float maxCamDistance = 9f;
         private Transform speaker;
         private GameObject caller;
         private string text = "";
@@ -15,7 +16,7 @@ namespace onegam_1501 {
         private float displayStart= -1;
         private float displaySpeed = 10;
 
-        public void Start() {
+        public void Awake() {
             tm = GetComponentInChildren<TextMesh>();
         }
 
@@ -57,10 +58,12 @@ namespace onegam_1501 {
                     // force displaying it all
                     displayStart = -100;
                 } else {
-                    DisableBubble();
-                    if (caller) {
-                        caller.SendMessage("BubbleDone", this);
-                        speaker = null;
+                    if (CanDismiss) {
+                        DisableBubble();
+                        if (caller) {
+                            caller.SendMessage("BubbleDone", this);
+                            speaker = null;
+                        }
                     }
                 }
             }

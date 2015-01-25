@@ -10,17 +10,17 @@ namespace onegam_1501 {
         public Conversation[] conversations;
 
         private TextBubble bubble;
-        private List<Enemy> enemies;
+        private List<Mover> movers;
         private Player player;
 
         int currentConversation = -1;
 
         public void Start() {
             bubble = Stage.Instance.GetBubble();
-            enemies = new List<Enemy>(transform.GetComponentsInChildren<Enemy>());
+            movers = new List<Mover>(transform.GetComponentsInChildren<Mover>());
             player = GameObject.FindObjectOfType<Player>();
-            foreach (Enemy e in enemies) {
-                e.CanControl = false;
+            foreach (Mover m in movers) {
+                m.CanControl = false;
             }
         }
 
@@ -38,8 +38,8 @@ namespace onegam_1501 {
         private void AdvanceConversation() {
             currentConversation++;
             if (currentConversation >= conversations.Length) {
-                foreach (Enemy e in enemies) {
-                    e.CanControl = true;
+                foreach (Mover m in movers) {
+                    m.CanControl = true;
                 }
                 if (currentConversation != 0) {
                     player.CanControl = true;
@@ -53,8 +53,8 @@ namespace onegam_1501 {
         }
 
         public void AttackableDied(Attackable obj) {
-            enemies.Remove(obj.GetComponent<Enemy>());
-            if (enemies.Count == 0) {
+            movers.Remove(obj.GetComponent<Mover>());
+            if (movers.Count == 0) {
                 SendMessageUpwards("SectionDone", this);
             }
         }

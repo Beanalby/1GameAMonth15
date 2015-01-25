@@ -8,10 +8,13 @@ namespace onegam_1501 {
         public const float yMax = -.5f;
         public const float yMin = -13;
 
+        public Material skybox;
         public string stageDescription;
         public Section[] sections;
         public TextBubble Message;
         public TextBubble textBubble;
+        public Texture2D finishTexture;
+        private Texture2D displayedImage = null;
 
         private Player player;
 
@@ -28,8 +31,24 @@ namespace onegam_1501 {
         }
 
         public void Start() {
+            if (skybox) {
+                RenderSettings.skybox = skybox;
+            }
             player = GameObject.FindObjectOfType<Player>();
             StartCoroutine(StartStage());
+        }
+
+        public void OnGUI() {
+            if (displayedImage != null) {
+                GUI.DrawTexture(
+                    new Rect(
+                        Screen.width / 2 - displayedImage.width / 2,
+                        50,
+                        displayedImage.width,
+                        displayedImage.height),
+                    displayedImage);
+
+            }
         }
 
         private IEnumerator StartStage() {
@@ -54,6 +73,22 @@ namespace onegam_1501 {
                 Debug.Log("Activating next section " + index);
                 sections[index].Activate();
             }
+        }
+
+        public void StageDone(StageEnder ender) {
+            StartCoroutine(_stageDone(ender));
+        }
+
+        private IEnumerator _stageDone(StageEnder ender) {
+            // stop the player and all active enemies
+            Debug.Log("Stage is done!");
+            player.CanControl = false;
+            foreach(Mover m in GameObject.FindObjectsOfType<Mover>()) {
+                m.CanControl = false;
+            }
+            displayedImage = finishTexture;
+            yield return new WaitForSeconds(3);
+            Application.LoadLevel(ender.nextLevel);
         }
 
         public TextBubble GetBubble() {
