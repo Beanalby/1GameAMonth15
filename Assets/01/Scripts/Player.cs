@@ -30,8 +30,8 @@ namespace onegam_1501 {
         void HandleAttack() {
             if (Input.GetButtonDown("Jump") && mover.CanControl) {
                 //s top moving when attacking
-                if (!attacker.gameObject.activeSelf) {
-                    attacker.gameObject.SetActive(true);
+                if (!attacker.IsAttacking()) {
+                    attacker.Attack();
                     mover.Stop(.1f);
                 }
             }

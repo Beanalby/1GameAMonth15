@@ -11,23 +11,38 @@ namespace onegam_1501 {
         private float started, duration = .25f;
         public bool hitEnemy;
         private int targetLayer;
+        BoxCollider2D box;
+        SpriteRenderer sprite;
 
         public void Start() {
-            gameObject.SetActive(false);
+            box = GetComponent<BoxCollider2D>();
+            sprite = GetComponent<SpriteRenderer>();
+            box.enabled = false;
+            sprite.enabled = false;
         }
 
-        public void OnEnable() {
+        public void Attack() {
+            if (started != -1) {
+                return;
+            }
             started = Time.time;
+            box.enabled = true;
+            sprite.enabled = true;
             if (hitEnemy) {
                 targetLayer = LayerMask.NameToLayer("enemy");
             } else {
                 targetLayer = LayerMask.NameToLayer("player");
             }
+            if (audio && Time.time > .1f) {
+                audio.Play();
+            }
         }
 
         public void Update() {
             if ((Time.time - started) > duration) {
-                gameObject.SetActive(false);
+                box.enabled = false;
+                sprite.enabled = false;
+                started = -1;
             }
         }
         public void OnTriggerEnter2D(Collider2D other) {
@@ -44,6 +59,9 @@ namespace onegam_1501 {
         public void AttackableDied() {
             // don't hit anything while we're dying
             Destroy(gameObject);
+        }
+        public bool IsAttacking() {
+            return started != -1;
         }
     }
 }

@@ -48,7 +48,7 @@ namespace onegam_1501 {
                     // attack if we're kinda close to the player
                     float dist = (player.transform.position - transform.position).magnitude;
                     if (dist < attackDist) {
-                        attackEffect.gameObject.SetActive(true);
+                        attackEffect.Attack();
                         mover.Stop(.2f);
                     }
                 }
