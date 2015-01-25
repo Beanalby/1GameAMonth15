@@ -3,11 +3,18 @@ using System.Collections;
 
 namespace onegam_1501 {
     public class Attackable: MonoBehaviour {
+        private float maxHealth = 50;
+        private float currentHealth;
 
+        public void Start() {
+            currentHealth = maxHealth;
+        }
         public void GotHit(float damage) {
-            Debug.Log("+++ " + name + " got hit!");
-            SendMessageUpwards("AttackableDied", this, SendMessageOptions.DontRequireReceiver);
-            Destroy(gameObject);
+            currentHealth = Mathf.Max(0, currentHealth - damage);
+            if (currentHealth == 0) {
+                SendMessageUpwards("AttackableDied", this, SendMessageOptions.DontRequireReceiver);
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -13,6 +13,8 @@ namespace onegam_1501 {
         public float maxSpeed = 10;
 
         private float groundDampening = 20f;
+        private float hitStart = -1, hitDuration = .5f;
+        private Color hitColor = Color.red, normalColor = Color.white;
 
         private CharacterController2D cc;
         private SpriteRenderer sprite;
@@ -32,6 +34,7 @@ namespace onegam_1501 {
         }
 
         public void Animate() {
+            // choose the right sprite based on our state
             if (stopStart != -1) {
                 sprite.sprite = attack;
             } else {
@@ -46,6 +49,18 @@ namespace onegam_1501 {
                         }
                         animLastFlip = Time.time;
                     }
+                }
+            }
+            // set sprite color if we've been hit recently
+            if (hitStart == -1) {
+                sprite.color = normalColor;
+            } else {
+                float percent = (Time.time - hitStart) / hitDuration;
+                if (percent >= 1) {
+                    sprite.color = normalColor;
+                    hitStart = -1;
+                } else {
+                    sprite.color = Color.Lerp(hitColor, normalColor, percent);
                 }
             }
         }
@@ -126,5 +141,9 @@ namespace onegam_1501 {
             forceTarget = forceSection.ForceTarget.position;
             CanControl = false;
         }
-    }
+
+        public void GotHit(float damage) {
+            hitStart = Time.time;
+        }
+   }
 }
