@@ -6,7 +6,7 @@ namespace onegam_1501 {
 
         public float damage = 1;
 
-        private float maxYDist = 1f;
+        private float maxYDist = 2f;
 
         private float started, duration = .25f;
         public bool hitEnemy;

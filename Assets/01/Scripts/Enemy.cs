@@ -12,8 +12,8 @@ namespace onegam_1501 {
         }
         private float attackDelay = 1f;
         private float maxMoveDist = 20f;
-        private float minMoveDist = 2f;
-        private float attackDist = 6f;
+        private float minMoveDist = 3f;
+        private float attackDist = 9f;
 
         private Mover mover;
         private Player player;
@@ -42,7 +42,7 @@ namespace onegam_1501 {
         IEnumerator LoopAttack() {
             yield return new WaitForSeconds(attackDelay + Random.Range(-attackDelay*.5f, attackDelay * .5f));
             while (true) {
-                if(player) {
+                if(player && CanControl) {
                     // attack if we're kinda close to the player
                     float dist = (player.transform.position - transform.position).magnitude;
                     if (dist < attackDist) {
