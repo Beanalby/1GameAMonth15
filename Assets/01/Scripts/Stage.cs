@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace onegam_1501 {
+    [RequireComponent(typeof(AudioSource))]
     public class Stage: MonoBehaviour {
         public const float yMax = -.5f;
         public const float yMin = -13;
@@ -62,6 +63,7 @@ namespace onegam_1501 {
             // stageDescription's done, activate the first section
             CinemaBars.Instance.HideCinemaBars();
             sections[0].Activate();
+            audio.Play(); // start the bg music
         }
 
         public void SectionDone(Section section) {
