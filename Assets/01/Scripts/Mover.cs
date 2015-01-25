@@ -40,10 +40,8 @@ namespace onegam_1501 {
                 } else {
                     if (Time.time - animLastFlip > animSpeed) {
                         if (sprite.sprite == walk1) {
-                            Debug.Log("Setting to walk2");
                             sprite.sprite = walk2;
                         } else {
-                            Debug.Log("Setting to walk1");
                             sprite.sprite = walk1;
                         }
                         animLastFlip = Time.time;

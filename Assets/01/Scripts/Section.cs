@@ -35,7 +35,6 @@ namespace onegam_1501 {
         }
 
         private void AdvanceConversation() {
-            Debug.Log("Advancing conversation");
             currentConversation++;
             if (currentConversation >= conversations.Length) {
                 foreach (Enemy e in enemies) {
