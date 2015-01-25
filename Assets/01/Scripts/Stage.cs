@@ -8,8 +8,12 @@ namespace onegam_1501 {
         public const float yMax = -.5f;
         public const float yMin = -13;
 
+        public string stageDescription;
         public Section[] sections;
+        public TextBubble Message;
+        public TextBubble textBubble;
 
+        private Player player;
 
         private static Stage _instance = null;
         public static Stage Instance {
@@ -24,11 +28,20 @@ namespace onegam_1501 {
         }
 
         public void Start() {
+            player = GameObject.FindObjectOfType<Player>();
             StartCoroutine(StartStage());
         }
 
         private IEnumerator StartStage() {
+            player.CanControl = false;
+            CinemaBars.Instance.ShowCinemaBars();
             yield return new WaitForSeconds(1);
+            Message.Display(Camera.main.gameObject, stageDescription, gameObject);
+        }
+
+        public void BubbleDone() {
+            // stageDescription's done, activate the first section
+            CinemaBars.Instance.HideCinemaBars();
             sections[0].Activate();
         }
 
@@ -41,6 +54,10 @@ namespace onegam_1501 {
                 Debug.Log("Activating next section " + index);
                 sections[index].Activate();
             }
-       }
+        }
+
+        public TextBubble GetBubble() {
+            return textBubble;
+        }
     }
 }

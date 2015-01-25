@@ -16,7 +16,7 @@ namespace onegam_1501 {
         int currentConversation = -1;
 
         public void Start() {
-            bubble = GameObject.FindObjectOfType<TextBubble>();
+            bubble = Stage.Instance.GetBubble();
             enemies = new List<Enemy>(transform.GetComponentsInChildren<Enemy>());
             player = GameObject.FindObjectOfType<Player>();
             foreach (Enemy e in enemies) {
@@ -26,6 +26,7 @@ namespace onegam_1501 {
 
         public void Activate() {
             Camera.main.GetComponent<CamFollow>().SetMaxX(transform.position.x);
+            player.CanControl = true;
             // if we have a conversation target, wait for the player
             // to hit it.  Otherwise immediately advance the converastion,
             // which will activate enemies.

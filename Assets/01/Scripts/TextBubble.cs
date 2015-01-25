@@ -17,17 +17,12 @@ namespace onegam_1501 {
 
         public void Start() {
             tm = GetComponentInChildren<TextMesh>();
-            tm.renderer.enabled = false;
-            renderer.enabled = false;
-            textLine.enabled = false;
         }
 
         public void Display(GameObject newSpeaker, string newText, GameObject newCaller=null) {
             displayStart = Time.time;
             text = newText.Replace("\\n", "\n");
-            renderer.enabled = true;
-            tm.renderer.enabled = true;
-            textLine.enabled = true;
+            EnableBubble();
             caller = newCaller;
             speaker = newSpeaker.transform;
             UpdatePosition();
@@ -47,10 +42,12 @@ namespace onegam_1501 {
                 pos.x = Mathf.Min(camX + maxCamDistance, pos.x);
                 transform.position = pos;
 
-                textLine.transform.position = new Vector3(
-                    speaker.position.x,
-                    textLine.transform.position.y,
-                    textLine.transform.position.z);
+                if (textLine) {
+                    textLine.transform.position = new Vector3(
+                        speaker.position.x,
+                        textLine.transform.position.y,
+                        textLine.transform.position.z);
+                }
             }
         }
 
@@ -60,9 +57,7 @@ namespace onegam_1501 {
                     // force displaying it all
                     displayStart = -100;
                 } else {
-                    tm.renderer.enabled = false;
-                    renderer.enabled = false;
-                    textLine.enabled = false;
+                    DisableBubble();
                     if (caller) {
                         caller.SendMessage("BubbleDone", this);
                         speaker = null;
@@ -77,5 +72,21 @@ namespace onegam_1501 {
                 }
             }
         }
+
+        private void EnableBubble() {
+            tm.renderer.enabled = true;
+            renderer.enabled = true;
+            if (textLine) {
+                textLine.enabled = true;
+            }
+        }
+
+        private void DisableBubble() {
+            tm.renderer.enabled = false;
+            renderer.enabled = false;
+            if (textLine) {
+                textLine.enabled = false;
+            }
+       }
     }
 }

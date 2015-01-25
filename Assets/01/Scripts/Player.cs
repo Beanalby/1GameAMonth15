@@ -14,7 +14,7 @@ namespace onegam_1501 {
         public AttackEffect attacker;
         private Mover mover;
 
-        public void Start() {
+        public void Awake() {
             mover = GetComponent<Mover>();
         }
 
