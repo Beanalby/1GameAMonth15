@@ -33,8 +33,8 @@ namespace onegam_1501 {
             } else {
                 targetLayer = LayerMask.NameToLayer("player");
             }
-            if (audio && Time.time > .1f) {
-                audio.Play();
+            if (GetComponent<AudioSource>() && Time.time > .1f) {
+                GetComponent<AudioSource>().Play();
             }
         }
 

@@ -27,9 +27,9 @@ namespace onegam_1501 {
             EnableBubble();
             caller = newCaller;
             speaker = newSpeaker;
-            audio.clip = speaker.speakSound;
-            audio.loop = true;
-            audio.Play();
+            GetComponent<AudioSource>().clip = speaker.speakSound;
+            GetComponent<AudioSource>().loop = true;
+            GetComponent<AudioSource>().Play();
             UpdatePosition();
         }
 
@@ -57,7 +57,7 @@ namespace onegam_1501 {
         }
 
         private void UpdateText() {
-            if (renderer.enabled && Input.GetButtonDown("Jump")) {
+            if (GetComponent<Renderer>().enabled && Input.GetButtonDown("Jump")) {
                 if (displayStart != -1) {
                     // force displaying it all
                     displayStart = -100;
@@ -76,22 +76,22 @@ namespace onegam_1501 {
                 tm.text = text.Substring(0, currentNum);
                 if (currentNum >= text.Length) {
                     displayStart = -1;
-                    audio.loop = false;
+                    GetComponent<AudioSource>().loop = false;
                 }
             }
         }
 
         private void EnableBubble() {
-            tm.renderer.enabled = true;
-            renderer.enabled = true;
+            tm.GetComponent<Renderer>().enabled = true;
+            GetComponent<Renderer>().enabled = true;
             if (textLine) {
                 textLine.enabled = true;
             }
         }
 
         private void DisableBubble() {
-            tm.renderer.enabled = false;
-            renderer.enabled = false;
+            tm.GetComponent<Renderer>().enabled = false;
+            GetComponent<Renderer>().enabled = false;
             if (textLine) {
                 textLine.enabled = false;
             }

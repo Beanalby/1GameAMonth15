@@ -23,8 +23,8 @@ namespace onegam_1501 {
         }
         public void GotHit(float damage) {
             currentHealth = Mathf.Max(0, currentHealth - damage);
-            if (audio) {
-                audio.Play();
+            if (GetComponent<AudioSource>()) {
+                GetComponent<AudioSource>().Play();
             }
            if (currentHealth == 0) {
                 GetComponent<BoxCollider2D>().enabled = false;

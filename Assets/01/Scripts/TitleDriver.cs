@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace onegam_1501 {
     public class TitleDriver: MonoBehaviour {
@@ -15,7 +16,7 @@ namespace onegam_1501 {
 
         public void Update() {
             if (Input.GetButtonDown("Jump")) {
-                Application.LoadLevel(nextLevel);
+                SceneManager.LoadScene(nextLevel);
             }
         }
         public void OnGUI() {

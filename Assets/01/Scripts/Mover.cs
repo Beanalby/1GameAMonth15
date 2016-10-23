@@ -24,12 +24,13 @@ namespace onegam_1501 {
         private Section forceSection = null;
         private float animSpeed = .15f;
         private float animLastFlip = -1f;
+        private bool isFlipped = false;
 
         public void Start() {
             cc = GetComponent<CharacterController2D>();
             sprite = GetComponentInChildren<SpriteRenderer>();
+            isFlipped = transform.localRotation.y != 0;
         }
-
         public void Update() {
             Animate();
         }
@@ -117,20 +118,16 @@ namespace onegam_1501 {
                 }
             }
             Vector3 newV = cc.velocity;
+            if (isFlipped) {
+                // reverse our input to match the character's reversal
+                x = -x;
+            }
             newV.x = Mathf.Lerp(newV.x, x * maxSpeed, Time.fixedDeltaTime * groundDampening);
             newV.y = Mathf.Lerp(newV.y, y * maxSpeed, Time.fixedDeltaTime * groundDampening);
             cc.velocity = newV;
 
             // apply the new velocity to our position
             Vector3 delta = cc.velocity * Time.deltaTime;
-            // flip ourselves if our direction changed
-            if ((delta.x > 0 && transform.localScale.x < 0f)
-                    || (delta.x < 0 && transform.localScale.x > 0f)) {
-                transform.localScale = new Vector3(
-                    -transform.localScale.x,
-                    transform.localScale.y,
-                    transform.localScale.z);
-            }
             //cap delta based on our movement restrictions
             if (delta.y > 0) {
                 delta.y = Mathf.Min(Stage.yMax - transform.position.y, delta.y);
@@ -138,8 +135,19 @@ namespace onegam_1501 {
                 delta.y = Mathf.Max(Stage.yMin - transform.position.y, delta.y);
             }
             cc.move(delta);
-        }
 
+            // flip ourselves if our direction changed
+            if (delta.x < 0) {
+                Quaternion newRotation;
+                if (isFlipped) {
+                    newRotation = Quaternion.identity;
+                } else {
+                    newRotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                }
+                transform.localRotation = newRotation;
+                isFlipped = !isFlipped;
+            }
+        }
         /// <summary>
         /// Called when something wants to kill our velocity
         /// </summary>
@@ -166,7 +174,7 @@ namespace onegam_1501 {
         public void AttackableDied() {
             CanControl = false;
             deathStart = Time.time;
-            if (transform.localScale.x < 0) {
+            if (isFlipped) {
                 deathTarget = -deathTarget;
             }
         }

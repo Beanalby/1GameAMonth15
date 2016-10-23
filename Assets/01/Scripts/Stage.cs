@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace onegam_1501 {
             // stageDescription's done, activate the first section
             CinemaBars.Instance.HideCinemaBars();
             sections[0].Activate();
-            audio.Play(); // start the bg music
+            GetComponent<AudioSource>().Play(); // start the bg music
         }
 
         public void SectionDone(Section section) {
@@ -87,7 +88,7 @@ namespace onegam_1501 {
             }
             displayedImage = finishTexture;
             yield return new WaitForSeconds(3);
-            Application.LoadLevel(ender.nextLevel);
+            SceneManager.LoadScene(ender.nextLevel);
         }
 
         public void PlayerDied() {
